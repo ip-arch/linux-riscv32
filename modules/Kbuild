@@ -1,0 +1,4 @@
+obj-m := $(NAME).o
+clean-files := *.o *.ko *.mod.[co] *~
+# Workaround for GCC error
+ccflags-remove := -mstack-protector-guard-offset=

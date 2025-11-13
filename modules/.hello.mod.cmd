@@ -1,0 +1,1 @@
+savedcmd_/home/nshimizu/nshimizu/cyg_froot/home/nshimizu/qemu-riscv32/modules/hello.mod := printf '%s\n'   hello.o | awk '!x[$$0]++ { print("/home/nshimizu/nshimizu/cyg_froot/home/nshimizu/qemu-riscv32/modules/"$$0) }' > /home/nshimizu/nshimizu/cyg_froot/home/nshimizu/qemu-riscv32/modules/hello.mod
