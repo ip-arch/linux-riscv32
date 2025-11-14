@@ -26,7 +26,7 @@ linux/Image: linux/linux-v$(LINUX)
 tags: linux/linux-v$(LINUX)
 	(cd linux/linux-v$(LINUX); \
 	patch -p1 < ../tags_sh.patch; \
-	make ARCH=$(ARCH) tags \
+	make ARCH=$(ARCH) -j $$(nproc) tags \
 	)
 
 qemu-run:
