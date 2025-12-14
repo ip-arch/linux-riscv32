@@ -1,3 +1,53 @@
+diff --git a/scripts/Makefile.build b/scripts/Makefile.build
+index 8f423a1fa..bf4507782 100644
+--- a/scripts/Makefile.build
++++ b/scripts/Makefile.build
+@@ -366,13 +366,16 @@ $(obj)/%.lds: $(src)/%.lds.S FORCE
+ 
+ # ASN.1 grammar
+ # ---------------------------------------------------------------------------
++# 1. 最終的な実行ファイル名に .exe を付ける
++ifeq ($(shell uname -o),Cygwin)
++HOSTEXEEXT := .exe
++endif
+ quiet_cmd_asn1_compiler = ASN.1   $(basename $@).[ch]
+-      cmd_asn1_compiler = $(objtree)/scripts/asn1_compiler $< \
++      cmd_asn1_compiler = $(objtree)/scripts/asn1_compiler$(HOSTEXEEXT) $< \
+ 				$(basename $@).c $(basename $@).h
+ 
+-$(obj)/%.asn1.c $(obj)/%.asn1.h: $(src)/%.asn1 $(objtree)/scripts/asn1_compiler
++$(obj)/%.asn1.c $(obj)/%.asn1.h: $(src)/%.asn1 $(objtree)/scripts/asn1_compiler$(HOSTEXEEXT)
+ 	$(call cmd,asn1_compiler)
+-
+ # Build the compiled-in targets
+ # ---------------------------------------------------------------------------
+ 
+diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
+index 8d56c0815..0b0e018f3 100644
+--- a/scripts/Makefile.dtbs
++++ b/scripts/Makefile.dtbs
+@@ -78,8 +78,11 @@ cmd_dtb_check = $(if $(dtb-check-enabled),; $(DT_CHECKER) $(DT_CHECKER_FLAGS) -u
+ # Do not replace $(filter %.dtb %.dtbo, $^) with $(real-prereqs). When a single
+ # DTB is turned into a multi-blob DTB, $^ will contain header file dependencies
+ # recorded in the .*.cmd file.
++ifeq ($(shell uname -o),Cygwin)
++HOSTEXEEXT := .exe
++endif
+ quiet_cmd_fdtoverlay = OVL $(quiet_dtb_check_tag) $@
+-      cmd_fdtoverlay = $(objtree)/scripts/dtc/fdtoverlay -o $@ -i $(filter %.dtb %.dtbo, $^) $(cmd_dtb_check)
++      cmd_fdtoverlay = $(objtree)/scripts/dtc/fdtoverlay$(HOSTEXEEXT) -o $@ -i $(filter %.dtb %.dtbo, $^) $(cmd_dtb_check)
+ 
+ $(multi-dtb-y): $(DT_TMP_SCHEMA) FORCE
+ 	$(call if_changed,fdtoverlay)
+@@ -88,7 +91,7 @@ $(call multi_depend, $(multi-dtb-y), .dtb, -dtbs)
+ # DTC
+ # ---------------------------------------------------------------------------
+ 
+-DTC ?= $(objtree)/scripts/dtc/dtc
++DTC ?= $(objtree)/scripts/dtc/dtc$(HOSTEXEEXT)
+ DTC_FLAGS += -Wno-unique_unit_address
+ 
+ # Disable noisy checks by default
 diff --git a/scripts/tags.sh b/scripts/tags.sh
 index 191e0461d..81a7b3398 100755
 --- a/scripts/tags.sh
