@@ -10,9 +10,9 @@ int main(void) {
 
     int value;
     if (fscanf(fp, "%d", &value) == 1)
-        printf("EPOCからの経過値: %d\n", value);
+        printf("Passed from EPOC:%dSec--> %dYears\n", value, value/((60*60/100)*24*36525));
     else
-        printf("値の取得に失敗しました。\n");
+        printf("Failed to get value\n");
 
     fclose(fp);
     return 0;

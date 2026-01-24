@@ -25,5 +25,5 @@ TOOLDIR=$(HOME)/x-tools/$(ARCHSUB)/bin
 SYSROOT=$(TOOLDIR)/../$(ARCHSUB)/$(ARCHSUB)/sysroot
 QEMUDIR=$(shell dirname '$(shell which qemu-system-$(ARCHx))')
 PATH:=$(QEMUDIR):$(TOOLDIR):/usr/bin:/bin:/sbin
-
+QEMUSHARE=$(HOMEDRIVE)$(HOMEPATH)/Desktop/QemuDir
 

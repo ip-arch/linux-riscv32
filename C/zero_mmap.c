@@ -4,32 +4,31 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
-#define N 1024  /* 配列要素数 */
+#define SIZE 2
 
 int main(void) {
+	size_t length = SIZE * getpagesize();
+	char *p;
 	int fd = open("/dev/zero", O_RDWR);
 	if (fd < 0) {
-		perror("open");
+		perror("open /dev/zero");
 		return 1;
 	}
 	
-	size_t length = N * sizeof(int);
-	int *array = mmap(NULL, length,
-	PROT_READ | PROT_WRITE,
+	p = mmap(NULL, length, PROT_READ | PROT_WRITE,
 	MAP_PRIVATE, fd, 0);
 	close(fd);
 	
-	if (array == MAP_FAILED) {
-		perror("mmap");
+	if (p == MAP_FAILED) {
+		perror("mmap error");
 		return 1;
 	}
-	
-	/* すべて 0 で初期化されていることを確認 */
-	for (int i = 0; i < 10; i++) {
-		printf("%d ", array[i]);
-	}
-	printf("...\n");
-	
-	munmap(array, length);
+	for(int i = 0; i < length; i++)
+		if(p[i] != 0) {
+			fprintf(stderr, "error p[%d]=%d\n", i, p[i]);
+			return 1;
+		}
+	munmap(p, length);
+	printf("all data cleared\n");
 	return 0;
 }
