@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Naohiko Shimizu <nshimizu@ip-arch.jp>
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <unistd.h>
@@ -19,7 +21,7 @@ void *run_deadline(void *arg) {
 		pthread_exit(NULL);
 	}
 	printf("deadline thread started [%ld]\n", gettid());
-	while (1) { /* 周期タスク */ }
+	while (1) { /* 周期タスク */ pthread_testcancel(); }
 	return NULL;
 }
 

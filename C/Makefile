@@ -13,7 +13,10 @@ qemu:
 ################################
 # suffix rules
 ################################
-.SUFFIXES:  .c .exe .qemu
+.SUFFIXES:  .c .exe .qemu .s
+
+.c.s:
+	$(CC) -S -O0 $< -o $*.s $(ADDFLAGS)
 
 .c.exe:
 	$(CC) -g -O2 $< -o $*.exe $(ADDFLAGS)

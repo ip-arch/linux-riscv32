@@ -5,6 +5,7 @@
 #include <time.h>
 #include <unistd.h>
 
+
 void handler(int sig, siginfo_t *si, void *uc) {
 	time_t cur_time = time(NULL);
 	printf("POSIX timer fired (id=%p) %s\n", si->si_value.sival_ptr, ctime(&cur_time));
@@ -26,7 +27,7 @@ int main(void) {
 	sev.sigev_notify = SIGEV_SIGNAL;
 	sev.sigev_signo = SIGRTMIN;
 	sev.sigev_value.sival_ptr = &timerid;
-	timer_create(CLOCK_MONOTONIC, &sev, &timerid);
+	timer_create(CLOCK_REALTIME, &sev, &timerid);
 	
 	/* 1秒後に発火し、0.5秒間隔で繰り返す */
 	its.it_value.tv_sec = 1;

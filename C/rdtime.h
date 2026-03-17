@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Naohiko Shimizu <nshimizu@ip-arch.jp>
 // Read 64-bit time counter on RV32
 static inline uint64_t read_time_rv32(void) {
     uint32_t lo, hi, tmp;

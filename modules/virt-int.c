@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Naohiko Shimizu <nshimizu@ip-arch.jp>
 /*
  *   RISC-V GPIO Interrupt Example with Debugfs trigger
  *   For QEMU testing without real hardware

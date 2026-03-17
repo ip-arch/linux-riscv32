@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 Naohiko Shimizu <nshimizu@ip-arch.jp>
 #include <stdio.h>
 #include <errno.h>
 #include <sys/mman.h>
@@ -19,14 +21,14 @@ int main() {
                       MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
   
   if (prevmap == MAP_FAILED) {
-    printf("mmap failed for length = %010lx\n", LEN);
+    printf("mmap failed for length = 0x%08lx\n", LEN);
     perror("case1 mmap failed");
   }
   newmap = (char *)syscall(SYS_mmap2, MADR, LEN2, PROT_WRITE|PROT_READ,
                       MAP_PRIVATE|MAP_ANONYMOUS, -1, OFS);
   
   if (newmap == MAP_FAILED) {
-    printf("mmap2 failed for pgofs, len = %010lx000, %010lx\n", OFS, LEN2);
+    printf("mmap2 failed for pgofs, len = 0x%08lx, 0x%08lx\n", OFS, LEN2);
     perror("case2 mmap failed");
   }
   
