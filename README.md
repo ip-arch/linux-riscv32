@@ -7,6 +7,7 @@ https://www.kyoritsu-pub.co.jp/book/b10159346.html
 ## 実行方法
 1. **rootfs.img の入手**: 
    本リポジトリの [Releases](../../releases) ページから `rootfs.img` をダウンロードし、linuxディレクトリに配置してください。
+   このイメージは buildroot 2025.02.xと BusyBox 1.37.0 をベースに genext2fs で作成したものです。ログインユーザーは root（パスワードなし）に設定されています。
 2. **QEMU の起動**:
    ```bash
    make qemu-run
