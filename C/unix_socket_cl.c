@@ -6,18 +6,13 @@
 #include <unistd.h>
 
 int main() {
-	unlink("/tmp/mysock");
 	int s = socket(AF_UNIX, SOCK_STREAM, 0);
 	struct sockaddr_un addr;
 	addr.sun_family = AF_UNIX;
 	strcpy(addr.sun_path, "/tmp/mysock");
-	bind(s, (struct sockaddr*)&addr, sizeof(addr));
-	listen(s, 5);
-	int c = accept(s, NULL, NULL);
-	char buf[100];
-	int n=read(c, buf, 99);
-	buf[n]='\0';
-	printf("Received: %s\n", buf);
-	close(c); close(s);
-	unlink("/tmp/mysock");
+	connect(s, (struct sockaddr*)&addr, sizeof(addr));
+	char *buf="Sending from Client";
+	write(s, buf, strlen(buf));
+	printf("sent: %s\n", buf);
+	close(s);
 }
