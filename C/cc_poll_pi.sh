@@ -1,6 +1,7 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Naohiko Shimizu <nshimizu@ip-arch.jp>
+rm -f logger health payment epoll_server
 cc -DUSE_PI_SEM  logger.c -o logger
 cc -DUSE_PI_SEM  health.c -o health
 cc -DUSE_PI_SEM  payment.c -o payment
