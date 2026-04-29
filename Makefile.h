@@ -36,6 +36,7 @@ ARCH=riscv
 ARCHx=riscv32
 ARCHSUB=$(ARCHx)-unknown-linux-gnu
 CROSS_COMPILE=$(ARCHSUB)-
+CFLAGS_RV32 = -march=rv32imac -mabi=ilp32
 TOOLDIR=$(HOME)/x-tools/$(ARCHSUB)/bin
 SYSROOT=$(TOOLDIR)/../$(ARCHSUB)/$(ARCHSUB)/sysroot
 QEMUDIR=$(shell dirname '$(shell which qemu-system-$(ARCHx))')
