@@ -5,4 +5,4 @@ rm -f logger health payment epoll_server
 cc  logger.c -o logger
 cc  health.c -o health
 cc  payment.c -o payment
-cc  epoll_server_ans.c -o epoll_server
+cc  epoll_server$1.c -o epoll_server

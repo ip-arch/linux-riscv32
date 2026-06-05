@@ -5,4 +5,4 @@ rm -f logger health payment epoll_server
 cc -DUSE_PI_SEM  logger.c -o logger
 cc -DUSE_PI_SEM  health.c -o health
 cc -DUSE_PI_SEM  payment.c -o payment
-cc -DUSE_PI_SEM  epoll_server_ans.c -o epoll_server
+cc -DUSE_PI_SEM  epoll_server$1.c -o epoll_server

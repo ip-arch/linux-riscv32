@@ -4,4 +4,4 @@
 make  logger.qemu ADDFLAGS=$1
 make  health.qemu ADDFLAGS=$1
 make  payment.qemu ADDFLAGS=$1
-make  epoll_server_ans.qemu ADDFLAGS=$1
+make  epoll_server$2.qemu ADDFLAGS=$1
