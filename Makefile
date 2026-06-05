@@ -55,7 +55,7 @@ qemu-run:
 	echo $(QEMUDIR) ; \
 	mkdir -p "$(QEMUSHARE)" ; \
 	LD_LIBRARY_PATH=$(EXTRA_LIB_PATH)$${LD_LIBRARY_PATH:+:$$LD_LIBRARY_PATH}; \
-	qemu-system-riscv32 -machine virt -m 256M   -kernel Image \
+	qemu-system-riscv32 -smp 1 -machine virt -m 256M   -kernel Image \
       	-nographic   -append "console=ttyS0 rdinit=/init root=/dev/ram0 " \
        	-cpu rv32,sscofpmf=true -initrd rootfs.img \
 	-drive file=fat:rw:"$(QEMUSHARE)",format=raw,id=shared \

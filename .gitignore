@@ -1,1 +1,3 @@
 *.img
+*_ans.c
+linux/rootfs.img
