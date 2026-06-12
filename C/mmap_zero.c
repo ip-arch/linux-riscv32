@@ -1,5 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Naohiko Shimizu <nshimizu@ip-arch.jp>
+
+// There are two methods to run this program without exception
+//   1: set mmap_min_addr to 0 as: sudo sysctl -w vm.mmap_min_addr=0 
+//   2: set CAP_SYS_RAWIO capability as: sudo setcap cap_sys_rawio+ep ./a.out
+
 #include <stdio.h>
 #include <sys/mman.h>
 
