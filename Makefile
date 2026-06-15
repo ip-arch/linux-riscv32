@@ -62,11 +62,11 @@ qemu-run:
 	-device virtio-net-device,netdev=net0 \
 	-netdev user,id=net0,hostfwd=tcp::$(SSH_PORT)-:22,hostfwd=tcp::$(HTTP_PORT)-:80 \
 	-device virtio-serial-device \
-	-chardev socket,host=0.0.0.0,port=5555,server=on,nowait,id=uart1 \
+	-chardev socket,host=0.0.0.0,port=5555,server=on,wait=off,id=uart1 \
 	-device virtconsole,chardev=uart1 \
 	-serial mon:stdio \
 #	 -virtfs local,path=. ,security_model=none,mount_tag=winhome \
-#	 -monitor unix:/tmp/qemu-monitor.sock,server,nowait \
+#	 -monitor unix:/tmp/qemu-monitor.sock,server,wait=off \
 	)
 
 exboard.dtbo: dts/exboard.dtso
