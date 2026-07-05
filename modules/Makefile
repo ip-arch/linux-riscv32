@@ -14,13 +14,16 @@ qemu:
 ################################
 # suffix rules
 ################################
-.SUFFIXES:  .c .ko .exe .qemu
+.SUFFIXES:  .c .ko .exe .qemu .sh
 
 .c.ko:
 	ARCH=$(ARCH) CROSS_COMPILE=$(TOOLDIR)/$(CROSS_COMPILE) make -C $(BUILD) M=$(M) V=1 NAME=$* EXTRA_CFLAGS=$(EXTRA_CFLAGS) modules
 
 .c.exe:
 	$(CC) -g -O2 $< -o $*.exe $(ADDFLAGS)
+
+.sh.qemu:
+	cp $< $(QEMUSHARE)
 
 .ko.qemu:
 	cp $< $(QEMUSHARE)
