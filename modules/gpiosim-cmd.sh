@@ -2,7 +2,11 @@
 
 GPIO=$(grep -oE 'gpio-[0-9]+' /sys/kernel/debug/gpio | head -1 | cut -d- -f2)
 
-GPIO=512
+echo "GPIO=$GPIO"
+echo $GPIO > /sys/class/gpio/export
+sleep 1
+echo in > /sys/class/gpio/gpio$GPIO/direction
+echo rising > /sys/class/gpio/gpio$GPIO/edge
 
 setint()
 {
