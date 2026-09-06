@@ -37,6 +37,10 @@ linux/Image: linux/linux-v$(LINUX)
 	make ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -j $(NPROC); ) 
 	cp linux/linux-v$(LINUX)/arch/$(ARCH)/boot/Image linux 
 
+linux/rootfs.img:
+	(cd linux; \
+		wget -nc https://github.com/ip-arch/linux-riscv32/releases/download/1st_minor_1_change_rcS/rootfs.img )
+
 linux-clean: linux/linux-v$(LINUX)
 	(cd linux; \
 	cd linux-v$(LINUX); \
@@ -50,7 +54,7 @@ tags: linux/linux-v$(LINUX)
 	make ARCH=$(ARCH) -j $(NPROC) tags \
 	)
 
-qemu-run:
+qemu-run: linux/Image linux/rootfs.img
 	(cd linux; \
 	echo $(QEMUDIR) ; \
 	mkdir -p "$(QEMUSHARE)" ; \
@@ -80,6 +84,8 @@ veryclean:
 	make -j $(NPROC) clean
 	rm -f exboard.dtbo
 	rm -f linux/Image
+	rm -f linux/rootfs.img
+
 clean:
 	(cd modules; make  clean)
 	(cd C; make  clean)
