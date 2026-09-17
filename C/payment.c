@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
     int listen_sock, client_sock;
     struct sockaddr_un addr;
     char buf[1024];
+    setvbuf(stdout, NULL, _IOLBF, 0);
 
     pi_sem_t *sem = NULL;
     for (int i = 0; i< 20; i++) {
@@ -46,14 +47,20 @@ int main(int argc, char *argv[]) {
     printf("epoll_server connected. Ready to process payments.\n");
 
     while (1) {
+        struct timespec t1;
+	int i;
         int n = read(client_sock, buf, sizeof(buf) - 1);
         if (n <= 0) break; // エラーまたは切断で終了
 
         buf[n] = '\0';
-        printf("[PAYMENT] Processing: %s", buf);
+        printf("[PAYMENT] Processing: %s\n", buf);
 	// paymentがloggerとhealthの間でCPUを占有 → 古典的3プロセスインバージョン
 	// （loggerはsem保持中だがpaymentに横取りされ解放できない）
-	busy_wait_ms(2000);  // 2000ms CPUを独占→loggerが動けない
+	for (i=0; i<20; i++) {
+	  clock_gettime(CLOCK_MONOTONIC, &t1);
+	  printf("[Payment %d] time %ld.%03lds\n", i,  t1.tv_sec%1000,t1.tv_nsec/1000000);
+	  busy_wait_ms(100);  // 2000ms CPUを独占→loggerが動けない
+	}
 	printf("[PAYMENT] 処理完了\n");
     }
 
