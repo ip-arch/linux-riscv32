@@ -3,7 +3,7 @@ set -eu
 DIR=$HOME
 sudo apt update
 sudo apt upgrade -y
-sudo apt install wget sudo git build-essential jq xz-utils bison flex bc universal-ctags vim file qemu-system-riscv netcat-openbsd -y
+sudo apt install wget sudo git build-essential jq xz-utils bison flex bc universal-ctags vim file qemu-system-riscv netcat-openbsd psmisc -y
 cd $DIR
 [ -d linux-riscv32 ] || git clone https://github.com/ip-arch/linux-riscv32.git
 
