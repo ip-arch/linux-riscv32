@@ -123,7 +123,7 @@ static int remap_mm(struct file *filp, struct vm_area_struct *vma)
         return -EINVAL;
     }
     
-    prot = pgprot_writecombine(vma->vm_page_prot);
+    prot = vma->vm_page_prot;
     vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
     
     if (remap_pfn_range(vma, vma->vm_start, 
